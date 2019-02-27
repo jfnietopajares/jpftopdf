@@ -1,4 +1,4 @@
-package com.jnieto.jpegtopef;
+package utilidades;
 
 
 
@@ -61,8 +61,7 @@ public class ParametrosGenerales {
 				try {
 					is.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(Constantes.MSGCONFIGURACIONERRORLEEFICHERO + " " + Constantes.CONFIGURACIONNOMBREFICHERO);
 				}
 		}
 	}

@@ -1,4 +1,4 @@
-package com.jnieto.jpegtopef;
+package utilidades;
 
 public abstract class Constantes {
 	public static final String NEWLINE = "\n";
@@ -23,7 +23,9 @@ public abstract class Constantes {
 	public final static String MAILDESTINATARIOS = "jfnietopajares@gmail.com";
 	public final static String MSGERRORMAIL = "Error enviando mail : ";
 
-	public final static String MSGPROCESADOPDF = "Fichero procesado to PDF: ";
+	public final static String MSGFICHEORJPGOK = "Fichero jpg  procesado : ";
+	public final static String MSGFICHEORPDFOK = "Fichero PDF generado : ";
+	
 	public final static String MSGMOVIDO = "Fichero movido al directorio : ";
 	public final static String MSGDIRECTORIOCREADO = " Directorio creado  : ";
 	public final static String MSGERRORDIRECTORIO = " Error al crear diractorio  : ";
@@ -49,9 +51,7 @@ public abstract class Constantes {
 			+ "El programa recorre el directorio actual y por cada fichero jpg genera un  "+ NEWLINE
 			+ "fichero PDF con el mismo nombre. "+ NEWLINE+ NEWLINE
 			+ "Los ficheros procesados los renombra poniendo como prefijo 'procesado' "+ NEWLINE
-			+ "y los mueve al subdirectorio './procesados'. "+ NEWLINE
-			+ "----------------------------------------------------------------------------"+ NEWLINE+ NEWLINE
-			+ " Valores actuales de configuración "+ NEWLINE
-			+ "----------------------------------------------------------------------------"+ NEWLINE;
+			+ "y los mueve al subdirectorio './procesados'. "+ NEWLINE;
+			
 
 }
