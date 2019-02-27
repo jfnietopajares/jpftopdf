@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package utilidades;
+package com.jnieto.utilidades;

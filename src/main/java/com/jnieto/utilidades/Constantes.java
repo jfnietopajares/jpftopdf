@@ -1,4 +1,4 @@
-package utilidades;
+package com.jnieto.utilidades;
 
 public abstract class Constantes {
 	public static final String NEWLINE = "\n";
@@ -30,6 +30,7 @@ public abstract class Constantes {
 	public final static String MSGDIRECTORIOCREADO = " Directorio creado  : ";
 	public final static String MSGERRORDIRECTORIO = " Error al crear diractorio  : ";
 	public final static String MSGERRORFICHERO = "Error en fichero original : ";
+	public final static String MSGERRORGENERAL = "Error general  : ";
 	public final static String MSGERRORNOMBREFICHERO = "Error en el nombre del fichero original : ";
 
 	public final static String MSGMAILOK = "Correo enviado : ";

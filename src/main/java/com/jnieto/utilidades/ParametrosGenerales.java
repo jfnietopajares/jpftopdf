@@ -1,4 +1,4 @@
-package utilidades;
+package com.jnieto.utilidades;
 
 
 
@@ -19,7 +19,7 @@ import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import pojo.ParametroCfg;
+import com.jnieto.pojo.ParametroCfg;
 
 /**
  * 
