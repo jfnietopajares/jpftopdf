@@ -1,13 +1,13 @@
-package dao;
+package com.jnieto.dao;
 
 import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import Excepciones.RenombraException;
-import utilidades.Constantes;
-import utilidades.Utilidades;
+import com.jnieto.excepciones.RenombraException;
+import com.jnieto.utilidades.Constantes;
+import com.jnieto.utilidades.Utilidades;
 
 public class OperaFicheros {
 
@@ -32,9 +32,9 @@ public class OperaFicheros {
 	 * la constante
 	 * 
 	 */
-	public static String getNuevoNombreFichero(String nombreFichero) {
-		String nombreDirectorio = "." + System.getProperty("file.separator") + Constantes.CARPETAPROCESADOS;
-		String  nombre = nombreDirectorio + System.getProperty("file.separator") + Constantes.PREFIJOPROCESADO + nombreFichero;
+	public static String getNuevoNombreFichero(String directorioTrabajo, String nombreFichero) {
+		String nombreDirectorio =  Constantes.CARPETAPROCESADOS;
+		String  nombre =  directorioTrabajo + nombreDirectorio + System.getProperty("file.separator") + Constantes.PREFIJOPROCESADO + nombreFichero;
 		return nombre;
 	}
 	/*
@@ -61,8 +61,8 @@ public class OperaFicheros {
 	
 
 	
-	public static void doCreaDirectorio() {
-		String nombreDirectorio = "." + System.getProperty("file.separator") + Constantes.CARPETAPROCESADOS;
+	public static void doCreaDirectorio(String nombreDirectorio) {
+	//	String nombreDirectorio = "." + System.getProperty("file.separator") + Constantes.CARPETAPROCESADOS;
 		try {
 			File directorio = new File(nombreDirectorio);
 			directorio.mkdir();
@@ -84,6 +84,11 @@ public class OperaFicheros {
 		// quitamos el punto final
 		pathAbsoluto = pathAbsoluto.substring(0,pathAbsoluto.length()-1) ;
 		return (pathAbsoluto);
+	}
+	
+	public static boolean existeDirectorio(String directorio) {
+		File file = new File(directorio);
+		return file.isDirectory();
 	}
 	
 }

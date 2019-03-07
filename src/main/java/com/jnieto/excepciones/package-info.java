@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package Excepciones;
+package com.jnieto.excepciones;

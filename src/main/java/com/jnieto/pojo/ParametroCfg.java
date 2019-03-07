@@ -1,4 +1,4 @@
-package pojo;
+package com.jnieto.pojo;
 
 public class ParametroCfg {
 	public String nombre;

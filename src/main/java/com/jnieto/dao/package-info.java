@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package dao;
+package com.jnieto.dao;

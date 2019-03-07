@@ -1,13 +1,18 @@
 /**
  * 
  */
-package Excepciones;
+package com.jnieto.excepciones;
 
 /**
  * @author JuanNieto
  *
  */
 public class RenombraException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6672884253357826225L;
 
 	/**
 	 * 

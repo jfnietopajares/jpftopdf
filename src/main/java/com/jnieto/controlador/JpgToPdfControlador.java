@@ -1,4 +1,4 @@
-package controlador;
+package com.jnieto.controlador;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,19 +12,21 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import dao.OperaFicheros;
-import utilidades.Constantes;
-import utilidades.Utilidades;
+import com.jnieto.dao.OperaFicheros;
+import com.jnieto.utilidades.Constantes;
+import com.jnieto.utilidades.Utilidades;
 
 /**
- * 2 * Clase : JpgTpPdfControlador. 3 * 4 * @author Juan Nieto -
- * jfnietopajares@gmail.com 5 * @version 27.02.2019 6
+ * JpgTpPdfControlador.
+ * 
+ * @author Juan Nieto - jfnietopajares@gmail.com
+ * @version 27.02.2019
  */
-public class JpgTpPdfControlador {
-	public static final Logger logger = LogManager.getLogger(JpgTpPdfControlador.class);
+public class JpgToPdfControlador {
+	public static final Logger logger = LogManager.getLogger(JpgToPdfControlador.class);
 	public String contenidoMail = " ";
 	public String orientacion;
+	public String directorioTrabajo;
 
 	/**
 	 * Constructor.
@@ -33,8 +35,9 @@ public class JpgTpPdfControlador {
 	 *            Define la orientaciñon de pdf que se va a generar H horizontal V
 	 *            veritcal
 	 */
-	public JpgTpPdfControlador(String orientacion) {
+	public JpgToPdfControlador(String orientacion, String directorioTrabajo) {
 		this.setOrientacion(orientacion);
+		this.setDirectorioTrabajo(directorioTrabajo);
 	}
 
 	/**
@@ -42,20 +45,26 @@ public class JpgTpPdfControlador {
 	 * que el nombre tenga sólo un . si tiene extensión jpg lo procesa
 	 */
 	public void recorreDirectorio() {
-		File directorioActual = new File("." + System.getProperty("file.separator"));
+		/*
+		 * 
+		 */
+		File directorioActual = new File(this.getDirectorioTrabajo());
+		System.out.println("------>" + this.getDirectorioTrabajo());
 		File[] listaFicheros = directorioActual.listFiles();
 		String nombreFichero;
 		for (int i = 0; i < listaFicheros.length; i++) {
 			if (!listaFicheros[i].isDirectory()) {
 				nombreFichero = listaFicheros[i].getName();
+				System.out.println("------>" + nombreFichero);
 				if (OperaFicheros.doValidaNombreFichero(nombreFichero)) {
 					String partesNombre[] = nombreFichero.split("\\.");
 					if (partesNombre[1].toLowerCase().equals(Constantes.EXTENSIONJPG)) {
 						this.procesaFicheroJpg(nombreFichero);
 					} else {
-						System.out.println(" el fichero no es jpg " + nombreFichero + Constantes.NEWLINE);
+						logger.info(Constantes.MSGEXTENSIONNOJPG + nombreFichero);
 					}
 				} else {
+					logger.info(Constantes.MSGERRORNOMBREFICHERO + nombreFichero);
 					System.out.println(" el nombre no es válido ver que hacemos" + nombreFichero + Constantes.NEWLINE);
 				}
 			}
@@ -73,6 +82,7 @@ public class JpgTpPdfControlador {
 	 */
 	public void procesaFicheroJpg(String nombreFichero) {
 		String partesNombre[] = nombreFichero.split("\\.");
+		String nombreFicheroPathCompleto = this.directorioTrabajo + nombreFichero ;
 		try {
 			if (partesNombre[0].length() > Constantes.PREFIJOPROCESADO.length()) {
 				if (!partesNombre[0].substring(0, Constantes.PREFIJOPROCESADO.length())
@@ -80,22 +90,23 @@ public class JpgTpPdfControlador {
 					/*
 					 * El fichero no tiene el prefijo procesado
 					 */
-					this.doPdf(nombreFichero,this.getOrientacion());
-					OperaFicheros.doRenombraMueve(nombreFichero, OperaFicheros.getNuevoNombreFichero(nombreFichero));
+					this.doPdf(this.directorioTrabajo,nombreFichero, this.getOrientacion());
+					OperaFicheros.doRenombraMueve(nombreFicheroPathCompleto,
+							 OperaFicheros.getNuevoNombreFichero(this.getDirectorioTrabajo(),  nombreFichero));
 				} else {
 					/*
 					 * El fichero tiene como prefijo procesado se mueve a la carpeta de procesados
 					 */
-					String nuevoNombre = "." + System.getProperty("file.separator") + Constantes.CARPETAPROCESADOS
-							+ System.getProperty("file.separator") + nombreFichero;
-					OperaFicheros.doRenombraMueve(nombreFichero, nuevoNombre);
+					OperaFicheros.doRenombraMueve(this.directorioTrabajo+ nombreFichero,
+							OperaFicheros.getNuevoNombreFichero(getDirectorioTrabajo(),  nombreFichero));
 				}
 			} else {
 				/*
 				 * El jpg tiene un nombre corto no ha sido procesado
 				 */
-				this.doPdf(nombreFichero, this.getOrientacion());
-				OperaFicheros.doRenombraMueve(nombreFichero, OperaFicheros.getNuevoNombreFichero(nombreFichero));
+				this.doPdf(this.directorioTrabajo,nombreFichero, this.getOrientacion());
+				OperaFicheros.doRenombraMueve(nombreFicheroPathCompleto,
+						 OperaFicheros.getNuevoNombreFichero(this.getDirectorioTrabajo(),  nombreFichero));
 			}
 			contenidoMail += Constantes.MSGFICHEORJPGOK + " " + nombreFichero + Constantes.NEWLINE;
 		} catch (Exception e) {
@@ -103,15 +114,19 @@ public class JpgTpPdfControlador {
 		}
 	}
 
-	/** 
-	 *  Genera un fichero con formato  PDF a partir del fichero jpg  y el tipo de orientacion
+	/**
+	 * Genera un fichero con formato PDF a partir del fichero jpg y el tipo de
+	 * orientacion
 	 * 
-	 * @param nombreFichero: El nombre de fichero jpg
-	 * @param orientacion: V vertical H horizontal para construir el pdf
+	 * @param nombreFichero:
+	 *            El nombre de fichero jpg
+	 * @param orientacion:
+	 *            V vertical H horizontal para construir el pdf
 	 */
-	public void doPdf(String nombreFichero,String orientacion) {
+	public void doPdf(String directorio,String nombreFichero, String orientacion) {
 		String fileName = nombreFichero.split("\\.")[0] + "." + Constantes.EXTENSIONPDDF;
-		File root = new File("." + System.getProperty("file.separator"));
+		// File root = new File("." + System.getProperty("file.separator"));
+		File root = new File(directorio);
 		Document document;
 		try {
 			if (orientacion.equals("H"))
@@ -140,34 +155,51 @@ public class JpgTpPdfControlador {
 		}
 	}
 
-	  /**
-        * Getter.
-          * @return orientacion: valor del atributo orientacion 
-          */
+	/**
+	 * Getter.
+	 * 
+	 * @return orientacion: valor del atributo orientacion
+	 */
 	public String getOrientacion() {
 		return orientacion;
 	}
-	  /**
-     * Setter.
-       * @param  orientacion: valor  para asignar al  atributo orientacion 
-       */
+
+	/**
+	 * Setter.
+	 * 
+	 * @param orientacion:
+	 *            valor para asignar al atributo orientacion
+	 */
 	public void setOrientacion(String orientacion) {
 		this.orientacion = orientacion;
 	}
 
-	  /**
-     * Getter.
-       * @return contenidoMail: valor de atributo contenidoMail 
-       */
+	/**
+	 * Getter.
+	 * 
+	 * @return contenidoMail: valor de atributo contenidoMail
+	 */
 	public String getContenidoMail() {
 		return contenidoMail;
 	}
-	  /**
-     * Setter.
-       * @param  orientacion: valor  para asignar al  atributo contenidoMail 
-       */
+
+	/**
+	 * Setter.
+	 * 
+	 * @param orientacion:
+	 *            valor para asignar al atributo contenidoMail
+	 */
 	public void setContenidoMail(String contenidoMail) {
 		this.contenidoMail = contenidoMail;
 	}
+
+	public String getDirectorioTrabajo() {
+		return directorioTrabajo;
+	}
+
+	public void setDirectorioTrabajo(String directorioTrabajo) {
+		this.directorioTrabajo = directorioTrabajo;
+	}
+	
 
 }

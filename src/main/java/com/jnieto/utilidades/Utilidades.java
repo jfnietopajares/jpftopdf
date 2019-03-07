@@ -7,13 +7,11 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.jnieto.dao.OperaFicheros;
 /**
  * 
  * @author JuanNieto
  * @version 27.02.2019
- * Clase Utilidades con métodos de propósigoto general.
+ * Clase Utilidades con métodos de propósito general.
  * Normalmente los métodos son estáticos.
  *
  */
@@ -37,11 +35,11 @@ public class Utilidades {
     * y de los valores de configuracion
     * @param miPr Es el objeto properties con lo valores actules de cada parámetro del programa
     */
-	public static void doMuestraTextoAyuda(Properties miPr) {
+	public static void doMuestraTextoAyuda(Properties miPr, String directorioTrabjo) {
 		System.out.println(Constantes.AYUDAUSO);
 		System.out.println(
 				"----------------------------------------------------------------------------" );
-		System.out.println("           Directorio de trabajo actual : " + OperaFicheros.getDirectorioActual());
+		System.out.println("           Directorio de trabajo actual : " + directorioTrabjo);
 		System.out.println(
 				"----------------------------------------------------------------------------" );
 		System.out.println(" Valores actuales de configuración " + Constantes.NEWLINE);

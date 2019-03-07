@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package pojo;
+package com.jnieto.pojo;

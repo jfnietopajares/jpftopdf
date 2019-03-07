@@ -28,10 +28,12 @@ public abstract class Constantes {
 	
 	public final static String MSGMOVIDO = "Fichero movido al directorio : ";
 	public final static String MSGDIRECTORIOCREADO = " Directorio creado  : ";
-	public final static String MSGERRORDIRECTORIO = " Error al crear diractorio  : ";
+	public final static String MSGERRORDIRECTORIO = " Error al crear directorio de copias: ";
+	public final static String MSGERRORDIRECTORIONOEXISTE =" Error no existe el directorio de trabajo. ";
 	public final static String MSGERRORFICHERO = "Error en fichero original : ";
 	public final static String MSGERRORGENERAL = "Error general  : ";
 	public final static String MSGERRORNOMBREFICHERO = "Error en el nombre del fichero original : ";
+	public final static String MSGEXTENSIONNOJPG = "El fichero no es un fichero jpeg : ";
 
 	public final static String MSGMAILOK = "Correo enviado : ";
 	public final static String MSGINICIO = "Inicio de ejecución : ";
@@ -43,11 +45,15 @@ public abstract class Constantes {
 	public final static String AYUDAUSO = NEWLINE  
 			+ "----------------------------------------------------------------------------" + NEWLINE
 			+ " Programa: jpgtopdf.jar \n" + " Autor: Juan Nieto.\n" + " Fecha: Febrero 2019 " + NEWLINE
-			+ " Para ejecutar el programa de forma correcta debes indicar un parámetro: " + NEWLINE
+			+ " Para ejecutar el programa de forma correcta debes indicar dos  parámetros: " + NEWLINE
+			+ " El primero puede ser:" + NEWLINE
 			+ "    [?] o [ayuda] o [help]   -->  Muestra esta ayuda  "+ NEWLINE
 			+ "    [H] u [Horizontal]       --> Compone el PDF en horizontal  "+ NEWLINE
 			+ "    [V] o [Vertical]         --> Componen el PDF en vertical "+ NEWLINE+ NEWLINE
-			+ " Ejemplo:  java -jar jpgtopdf.jar V "+ NEWLINE
+			+ " El segundo debe ser la ruta ABSOLUTA donde se encuentran los ficheros " +NEWLINE
+			+ " Este parámetro es opcional y si no se pasa se toma el directorio actual  " + NEWLINE
+			+" como directorio de trabajo." + NEWLINE
+			+ " Ejemplo:  java -jar jpgtopdf.jar V  \tmp\ficherosjpg " + NEWLINE
 			+ "----------------------------------------------------------------------------"+ NEWLINE
 			+ "El programa recorre el directorio actual y por cada fichero jpg genera un  "+ NEWLINE
 			+ "fichero PDF con el mismo nombre. "+ NEWLINE+ NEWLINE

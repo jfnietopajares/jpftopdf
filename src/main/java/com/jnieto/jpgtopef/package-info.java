@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package com.jnieto.jpegtopef;
+package com.jnieto.jpgtopef;

@@ -5,4 +5,4 @@
  * @author JuanNieto
  *
  */
-package controlador;
+package com.jnieto.controlador;
