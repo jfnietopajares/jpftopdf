@@ -18,7 +18,7 @@ public abstract class Constantes {
 	public final static int MIALPORT = 25;
 	public final static String MAILEMISOR = "jnieto@saludcastillayleon.es";
 	public final static String MAILUSER = "06551256M@saludcastillayleon.es";
-	public final static String MAILPASSW = "00000jjjjj";
+	public final static String MAILPASSW = "......";
 	public final static String MAILAUTH = "true";
 	public final static String MAILDESTINATARIOS = "jfnietopajares@gmail.com";
 	public final static String MSGERRORMAIL = "Error enviando mail : ";
