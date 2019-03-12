@@ -49,18 +49,22 @@ public class JpgToPdfControlador {
 		 * 
 		 */
 		File directorioActual = new File(this.getDirectorioTrabajo());
-		System.out.println("------>" + this.getDirectorioTrabajo());
+		//System.out.println("------>" + this.getDirectorioTrabajo());
 		File[] listaFicheros = directorioActual.listFiles();
 		String nombreFichero;
 		for (int i = 0; i < listaFicheros.length; i++) {
 			if (!listaFicheros[i].isDirectory()) {
 				nombreFichero = listaFicheros[i].getName();
-				System.out.println("------>" + nombreFichero);
+			//	System.out.println("------>" + nombreFichero);
 				if (OperaFicheros.doValidaNombreFichero(nombreFichero)) {
 					String partesNombre[] = nombreFichero.split("\\.");
+			//		System.out.println("------> validado nombre" );
 					if (partesNombre[1].toLowerCase().equals(Constantes.EXTENSIONJPG)) {
 						this.procesaFicheroJpg(nombreFichero);
-					} else {
+					} else 	if (partesNombre[1].toLowerCase().equals(Constantes.EXTENSIONPDDF)) {
+			//			System.out.println("------> pdf " );
+						this.procesaFicheroPdf(nombreFichero);
+					}else {
 						logger.info(Constantes.MSGEXTENSIONNOJPG + nombreFichero);
 					}
 				} else {
@@ -155,6 +159,30 @@ public class JpgToPdfControlador {
 		}
 	}
 
+	public void procesaFicheroPdf(String nombreFichero) {
+		String partesNombre[] = nombreFichero.split("\\.");
+		String nombreFicheroPathCompleto = this.directorioTrabajo + nombreFichero ;
+		try {
+			if (partesNombre[0].length() > Constantes.PREFIJOPROCESADO.length()) {
+				if (partesNombre[0].substring(0, Constantes.PREFIJOPROCESADO.length())
+						.equals(Constantes.PREFIJOPROCESADO)) {
+					/*
+					 * El fichero tiene como prefijo procesado se mueve a la carpeta de procesados
+					 */
+					OperaFicheros.doRenombraMueve(nombreFicheroPathCompleto,
+							 this.directorioTrabajo+ Constantes.CARPETAPROCESADOS + System.getProperty("file.separator") + nombreFichero);
+				}
+			} else {
+				/*
+				 * El pdf tiene un nombre corto no ha sido procesado
+				 * no se hace nada
+				 */
+			}
+			contenidoMail += Constantes.MSGFICHEORPDFMOVIDO + " " + nombreFichero + Constantes.NEWLINE;
+		} catch (Exception e) {
+			contenidoMail += Utilidades.getTraceException(e);
+		}
+	}
 	/**
 	 * Getter.
 	 * 

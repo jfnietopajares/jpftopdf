@@ -25,6 +25,7 @@ public abstract class Constantes {
 
 	public final static String MSGFICHEORJPGOK = "Fichero jpg  procesado : ";
 	public final static String MSGFICHEORPDFOK = "Fichero PDF generado : ";
+	public final static String MSGFICHEORPDFMOVIDO = "Fichero PDF movido : ";
 	
 	public final static String MSGMOVIDO = "Fichero movido al directorio : ";
 	public final static String MSGDIRECTORIOCREADO = " Directorio creado  : ";
@@ -61,6 +62,8 @@ public abstract class Constantes {
 			+ "y los mueve al subdirectorio './procesados'. "+ NEWLINE;
 			
 
+	
+	
 	
 	
 }
